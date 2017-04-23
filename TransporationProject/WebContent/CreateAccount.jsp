@@ -13,6 +13,10 @@ Create User Account <%-- Actual title user see on the webpage --%>
 
 <%-- Action needs to link to a jsp page that pulls information from database and check if the information is valid--%>
 <form action = "CreateAccountController" method = "POST"> 
+	First Name*: <input type = "text" name = "fname">
+	<br>
+	Last Name*: <input type = "text" name = "lname">
+	<br>
 	Username*: <input type = "text" name = "username">
 	<br>
 	Password*: <input type = "password" name = "password">

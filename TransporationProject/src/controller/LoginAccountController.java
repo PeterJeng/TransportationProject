@@ -8,6 +8,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import model.Authenticator;
 import model.User;
 import sun.text.normalizer.ICUBinary.Authenticate;
@@ -31,9 +33,13 @@ public class LoginAccountController extends HttpServlet{
 		
 		RequestDispatcher rd = null;
 		
+		//create a session that responds to the entire website while it is active. 
+		//Ex. can use information of a class User temp in other jsp from this session
+		HttpSession userSession = request.getSession();
+		
 		if (result.equals("success")) {
 			User user = new User(username, password);
-			request.setAttribute("user", user);
+			userSession.setAttribute("user", user);
 			rd = request.getRequestDispatcher("/AccountMainPage.jsp");
 		} 
 		else{

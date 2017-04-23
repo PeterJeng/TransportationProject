@@ -3,8 +3,14 @@ package model;
 import java.sql.*;
 
 public class Authenticator {
-	public static boolean validData(String username, String password, String confirmPassword, String RUID){
-		if (username.isEmpty()) {
+	
+	//check to see that all the fields in createAccount is filled. If any of the REQUIRED filled is empty, return false.
+	public static boolean validData(String fname, String lname, String username, String password, String confirmPassword, String RUID){
+		if (fname.isEmpty()) {
+			return false;
+		} else if (lname.isEmpty()) {
+			return false;
+		} else if (username.isEmpty()) {
 			return false;
 		} else if (password.isEmpty()) {
 			return false;
@@ -17,7 +23,8 @@ public class Authenticator {
 		}
 	}
 	
-	public String createAccount(String username, String password, String confirmPassword, String RUID, String email, String address){
+	//create a user account in the transportation project DB with the given values
+	public String createAccount(String RUID, String username, String password, String confirmPassword,  String email, String address, String fname, String lname){
 		try {
 
 			//Create a connection string
@@ -31,9 +38,10 @@ public class Authenticator {
 			//Create a SQL statement
 			Statement stmt = con.createStatement();
 			
-			boolean validData = validData(username, password, confirmPassword, RUID);
+			boolean validData = validData(fname, lname, username, password, confirmPassword, RUID);
 			
 			if(validData == false){
+				con.close();
 				return "missing fields";
 			}
 			
@@ -49,12 +57,13 @@ public class Authenticator {
 				ResultSet result = stmt.executeQuery(checkUsername);
 				//check to see if username is already in database, fail if it existed previously
 				if(result.isBeforeFirst() == true){
+					con.close();
 					return "duplicate username";
 				}
 				else{
 					//create the insert statement
-					String insertNewAccount = "INSERT INTO transportationProject.User(RUID, Username, Password, Email, Address)"+ 
-											" VALUES ('" + RUID + "', '"+ username+ "', '" + password + "', '" + email + "', '" + address + "');"; 
+					String insertNewAccount = "INSERT INTO transportationProject.User(RUID, Username, Password, Email, Address, FirstName, LastName)"+ 
+											" VALUES ('" + RUID + "', '"+ username+ "', '" + password + "', '" + email + "', '" + address + "', '" + fname + "', '" + lname + "');"; 
 					
 					String insertNewStat = "INSERT INTO transportationProject.UserStats(RUID)" + " VALUES ('" + RUID + "');"; 
 											
@@ -76,6 +85,7 @@ public class Authenticator {
 
 	}
 	
+	//check the login information with information stored in the DB. Return error if information does not match
 	public String loginAuthenticator(String username, String password){
 		try {
 			//Create a connection string
