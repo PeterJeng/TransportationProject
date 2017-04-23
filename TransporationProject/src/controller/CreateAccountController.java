@@ -39,7 +39,7 @@ public class CreateAccountController extends HttpServlet {
 		Authenticator authenticator = new Authenticator();
 		String result = authenticator.createAccount(username, password, confirmPassword, RUID, email, address);
 		if(result.equals("missing fields")){
-			System.out.println("Missing required data");
+			System.out.println("missing required data");
 		}
 		else if (result.equals("password does not match")) {
 			System.out.println("password does not match");
@@ -52,6 +52,6 @@ public class CreateAccountController extends HttpServlet {
 		else{
 			System.out.println("success");
 		}
-		//rd.forward(request, response);
+		
 	}
 }
