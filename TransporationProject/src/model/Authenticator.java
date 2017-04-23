@@ -53,11 +53,14 @@ public class Authenticator {
 				}
 				else{
 					//create the insert statement
-					String insertAccount = "INSERT INTO transportationProject.User(RUID, Username, Password, Email, Address)"+ 
+					String insertNewAccount = "INSERT INTO transportationProject.User(RUID, Username, Password, Email, Address)"+ 
 											" VALUES ('" + RUID + "', '"+ username+ "', '" + password + "', '" + email + "', '" + address + "');"; 
+					
+					String insertNewStat = "INSERT INTO transportationProject.UserStats(RUID)" + " VALUES ('" + RUID + "');"; 
 											
 					//update database						
-					stmt.executeUpdate(insertAccount);
+					stmt.executeUpdate(insertNewAccount);
+					stmt.executeUpdate(insertNewStat);
 					con.close();
 					return "success";
 				}

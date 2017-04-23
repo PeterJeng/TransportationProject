@@ -4,15 +4,17 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Main Page</title>
+<title>Account Main Page</title>
 </head>
 <body>
 
 <% out.println("Main Page"); %> 
 <br>
-Welcome ${requestScope['user'].username}! To access the information, please click the links below:
+<%-- requestScope['user'] retrieves the instance of User class made in LoginAccountController --%>
+Welcome ${requestScope['user'].getUsername()}! To access the information, please click the links below:
 <br>
 <br/>
+
 <a href="RequestRide.jsp">Request Ride</a><br>
 
 <a href="OfferRide.jsp">Offer Ride</a><br>

@@ -32,9 +32,6 @@ public class CreateAccountController extends HttpServlet {
 		String RUID = request.getParameter("ruid");
 		String email = request.getParameter("email");
 		String address = request.getParameter("address");
-		
-		System.out.println(password);
-		System.out.println(confirmPassword);
  
 		Authenticator authenticator = new Authenticator();
 		String result = authenticator.createAccount(username, password, confirmPassword, RUID, email, address);
