@@ -10,7 +10,7 @@
 
 <% out.println("Main Page"); %> 
 <br>
-<%-- user.getFirstName() retrieves the instance of User class made in LoginAccountController --%>
+<%-- requestScope['user'] retrieves the instance of User class made in LoginAccountController --%>
 Welcome ${user.getFirstName()}! To access the information, please click the links below:
 <br>
 <br/>

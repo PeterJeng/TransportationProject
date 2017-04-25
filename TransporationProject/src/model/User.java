@@ -14,6 +14,10 @@ public class User {
 	private int rank;
 	private String reward;
 	
+
+	
+	
+	
 	public User(String username, String password){
 		this.username = username;
 		this.password = password;
@@ -33,9 +37,9 @@ public class User {
 			
 			
 			//Make a SELECT query from the table specified by the 'username' parameter at the loginPage
-			String userInfo = "SELECT * FROM User WHERE username = '" + username +"';";
+			String retrieveRUID = "SELECT * FROM User WHERE username = '" + username +"';"; //retrieving the information by typing in the username
 			//Run the query against the database.
-			ResultSet result = stmt.executeQuery(userInfo);
+			ResultSet result = stmt.executeQuery(retrieveRUID);
 			
 			//from the result of the query, update the fields of this instance of user with data from the DB
 			while(result.next()){
@@ -55,7 +59,28 @@ public class User {
 				this.rank = result.getInt("Rank");
 				this.reward = result.getString("Rewards");
 			}
-					
+			// ELLY'S PORTION
+			/* String retrieveUserRequestRide = "SELECT * FROM RequestRide WHERE username = '" + username + "'";
+			result = stmt.executeQuery(retrieveUserRequestRide);
+			while(result.next()){
+				this.Rdestination = result.getString("destination");	
+				this.Rdeparture = result.getString("departure");
+				this.Rlocation = result.getString("location");
+				this.Rtime = result.getString("time");
+				
+			}
+			String retrieveUserOfferRide = "SELECT * FROM OfferRide WHERE username = '" + username + "'";
+			result = stmt.executeQuery(retrieveUserOfferRide);
+			while(result.next()){
+					this.Odestination = result.getString("destination");	
+					this.Odeparture = result.getString("departure");
+					this.Olocation = result.getString("location");
+					this.Otime = result.getString("time");
+					this.Oseats = result.getString("seats");
+					this.Oadditionalinformation = result.getString("additionalinformation"); 
+				} */
+				
+				
 		
 			con.close();
 
@@ -63,6 +88,95 @@ public class User {
 		}
 		
 	}
+	/*public void RequestedRide(){
+		try {
+
+			//Create a connection string
+			String url = "jdbc:mysql://transportationproject.c7dtxm2i40gp.us-east-1.rds.amazonaws.com:3306/transportationProject";
+			//Load JDBC driver - the interface standardizing the connection procedure. Look at WEB-INF\lib for a mysql connector jar file, otherwise it fails.
+			Class.forName("com.mysql.jdbc.Driver");
+
+			//Create a connection to your DB
+			Connection con = DriverManager.getConnection(url, "peterEleseRandy", "xd123cs336");
+
+			//Create a SQL statement
+			Statement stmt = con.createStatement();
+			String retrieveUserRequestRide = "SELECT * FROM RequestRide WHERE username = '" + username + "'";
+			ResultSet result = stmt.executeQuery(retrieveUserRequestRide);
+			while(result.next()){
+				this.Rdestination = result.getString("destination");	
+				this.Rdeparture = result.getString("departure");
+				this.Rlocation = result.getString("location");
+				this.Rtime = result.getString("time");
+				
+			}
+			
+		}catch (Exception e) {
+		}
+		
+	}
+	public void OfferedRide(){
+		try {
+
+			//Create a connection string
+			String url = "jdbc:mysql://transportationproject.c7dtxm2i40gp.us-east-1.rds.amazonaws.com:3306/transportationProject";
+			//Load JDBC driver - the interface standardizing the connection procedure. Look at WEB-INF\lib for a mysql connector jar file, otherwise it fails.
+			Class.forName("com.mysql.jdbc.Driver");
+
+			//Create a connection to your DB
+			Connection con = DriverManager.getConnection(url, "peterEleseRandy", "xd123cs336");
+
+			//Create a SQL statement
+			Statement stmt = con.createStatement();
+			String retrieveUserOfferRide = "SELECT * FROM OfferRide WHERE username = '" + username + "'";
+			ResultSet result = stmt.executeQuery(retrieveUserOfferRide);
+			while(result.next()){
+					this.Odestination = result.getString("destination");	
+					this.Odeparture = result.getString("departure");
+					this.Olocation = result.getString("location");
+					this.Otime = result.getString("time");
+					this.Oseats = result.getString("seats");
+					this.Oadditionalinformation = result.getString("additionalinformation"); 
+				}
+		}catch (Exception e) {
+		}
+	} 
+	public void RequestAvailableRides(){
+		try {
+
+			//Create a connection string
+			String url = "jdbc:mysql://transportationproject.c7dtxm2i40gp.us-east-1.rds.amazonaws.com:3306/transportationProject";
+			//Load JDBC driver - the interface standardizing the connection procedure. Look at WEB-INF\lib for a mysql connector jar file, otherwise it fails.
+			Class.forName("com.mysql.jdbc.Driver");
+
+			//Create a connection to your DB
+			Connection con = DriverManager.getConnection(url, "peterEleseRandy", "xd123cs336");
+
+			//Create a SQL statement
+			Statement stmt = con.createStatement();
+			String MatchingDestinations = "SELECT O.username FROM OfferRide O, RequestRide R WHERE R.destination = O.destination";
+			ResultSet matched = stmt.executeQuery(MatchingDestinations);
+		//	int count = 0;
+			while (matched.next()){
+		//		count++;
+				String matchedd = matched.getString("username");
+				String OfferRideDeparture = "SELECT departure FROM OfferRide WHERE username = '" + matchedd + "'";
+				String OfferRideDestination = "SELECT destination FROM OfferRide WHERE username = '" + matchedd + "'";
+				String OfferRideTime = "SELECT time FROM OfferRide WHERE username = '" + matchedd + "'";
+				String OfferRideSeats = "SELECT seats FROM OfferRide WHERE username = '" + matchedd + "'";
+				String OfferRideLocation = "SELECT location FROM OfferRide WHERE username = '" + matchedd + "'";
+				String OfferRideAdditionalinformation = "SELECT additionalinformation FROM OfferRide WHERE username = '" + matchedd + "'";
+				
+				
+			
+			}
+			
+			
+
+		}catch (Exception e) {
+		}
+	} */
+	
 	
 	public String getFirstName() {
 		return firstName;
@@ -143,4 +257,7 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-}
+	public void requestRide(){
+	}
+	}
+

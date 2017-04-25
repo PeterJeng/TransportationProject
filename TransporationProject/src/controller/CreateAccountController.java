@@ -38,20 +38,25 @@ public class CreateAccountController extends HttpServlet {
  
 		Authenticator authenticator = new Authenticator();
 		String result = authenticator.createAccount(RUID, username, password, confirmPassword, email, address, fname, lname);
-
-		
 		if(result.equals("missing fields")){
-			getServletContext().getRequestDispatcher("/CreateAccountError/MissingField.jsp").forward(request, response);
+			
+			//need to change to popup window
+			System.out.println("missing required data");
 		}
 		else if (result.equals("password does not match")) {
-			getServletContext().getRequestDispatcher("/CreateAccountError/IncorrectPassword.jsp").forward(request, response);
+			//need to change to popup window
+			System.out.println("password does not match");
 		
 		} 
 		else if(result.equals("duplicate username")){
-			getServletContext().getRequestDispatcher("/CreateAccountError/UsernameAlreadyTaken.jsp").forward(request, response);
+			//need to change
+			System.out.println("duplicate username");
 		}
 		else{
 			System.out.println("success");
+			
+		//	HttpSession userSession = request.getSession();
+			//userSession.setAttribute("RUID", RUID);
 		}
 		
 	}
