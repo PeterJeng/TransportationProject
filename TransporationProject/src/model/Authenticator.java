@@ -22,7 +22,50 @@ public class Authenticator {
 			return true;
 		}
 	}
-	
+	public static boolean validRequestRide(String username, String departure, String destination, String time, String location){
+		if (departure.isEmpty()) {
+			return false;
+		} else if (destination.isEmpty()) {
+			return false;
+		} else if (time.isEmpty()) {
+			return false;
+		} else if (location.isEmpty()) {
+			return false;
+		}  else if (username.isEmpty()) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	public static boolean validOfferRide(String username, String departure, String destination, String time, String seats, String location, String additionalinformation){
+		System.out.println("checking boolean");
+		if (departure.isEmpty()) {
+			System.out.println("departure empty");
+			return false;
+		} else if (destination.isEmpty()) {
+			System.out.println("dest empty");
+			return false;
+		} else if (time.isEmpty()) {
+			System.out.println("time empty");
+			return false;
+		} else if (location.isEmpty()) {
+			System.out.println("location empty");
+			return false;
+		}  else if (username.isEmpty()) {
+			System.out.println("ruid empty");
+			return false;
+		}else if (seats.isEmpty()) {
+			System.out.println("seats empty");
+			return false;
+		} else if (additionalinformation.isEmpty()) {
+			System.out.println("add empty");
+			return false;
+		} 
+		else {
+			System.out.println("BOOLEAN WORKS");
+			return true;
+		}
+	}
 	//create a user account in the transportation project DB with the given values
 	public String createAccount(String RUID, String username, String password, String confirmPassword,  String email, String address, String fname, String lname){
 		try {
@@ -38,9 +81,9 @@ public class Authenticator {
 			//Create a SQL statement
 			Statement stmt = con.createStatement();
 			
-			boolean validData = validData(fname, lname, username, password, confirmPassword, RUID);
+			boolean validData = validData(fname, lname, username, password, confirmPassword, RUID); // validate data so that none of em is empty
 			
-			if(validData == false){
+			if(validData == false){ // disconnect from db and tell controller tha something's missing
 				con.close();
 				return "missing fields";
 			}
@@ -52,7 +95,7 @@ public class Authenticator {
 			}
 			else{
 				//Make a SELECT query from the table specified by the 'username' parameter at the loginPage
-				String checkUsername = "SELECT * FROM User WHERE username = '" + username +"'";
+				String checkUsername = "SELECT * FROM User WHERE username = '" + username +"'"; // check if existing user is in the database. if does, close connection
 				//Run the query against the database.
 				ResultSet result = stmt.executeQuery(checkUsername);
 				//check to see if username is already in database, fail if it existed previously
@@ -61,12 +104,12 @@ public class Authenticator {
 					return "duplicate username";
 				}
 				else{
-					//create the insert statement
+					//create the insert statement. inserts every single piece of information from the controller is put into the database
 					String insertNewAccount = "INSERT INTO transportationProject.User(RUID, Username, Password, Email, Address, FirstName, LastName)"+ 
 											" VALUES ('" + RUID + "', '"+ username+ "', '" + password + "', '" + email + "', '" + address + "', '" + fname + "', '" + lname + "');"; 
 					
 					String insertNewStat = "INSERT INTO transportationProject.UserStats(RUID)" + " VALUES ('" + RUID + "');"; 
-											
+					//only need to insert ruid, so every single value should be 0. 						
 					//update database						
 					stmt.executeUpdate(insertNewAccount);
 					stmt.executeUpdate(insertNewStat);
@@ -120,6 +163,7 @@ public class Authenticator {
 		}
 	}
 
+
 	public String resetPasswordAuthenticator(String username, String RUID){
 		try {
 			//Create a connection string
@@ -154,4 +198,124 @@ public class Authenticator {
 		}
 		
 	}
+
+	public String requestridetable(String username, String departure, String destination, String time,  String location){
+		try {
+
+			//Create a connection string
+			String url = "jdbc:mysql://transportationproject.c7dtxm2i40gp.us-east-1.rds.amazonaws.com:3306/transportationProject";
+			//Load JDBC driver - the interface standardizing the connection procedure. Look at WEB-INF\lib for a mysql connector jar file, otherwise it fails.
+			Class.forName("com.mysql.jdbc.Driver");
+
+			//Create a connection to your DB
+			Connection con = DriverManager.getConnection(url, "peterEleseRandy", "xd123cs336");
+
+			//Create a SQL statement
+			Statement stmt = con.createStatement();
+			
+			boolean validDataRequest = validRequestRide(username, departure, destination, time, location); // validate data so that none of em is empty
+			System.out.println(validDataRequest);
+			if(validDataRequest == false){ // disconnect from db and tell controller tha something's missing
+				con.close();
+				return "missing fields";
+			}
+			
+			//first check if the query returned an empty set. In other words, a null row
+				//Make a SELECT query from the table specified by the 'username' parameter at the loginPage
+				String checkUsername = "SELECT * FROM RequestRide WHERE username = '" + username +"'"; // check if existing user is in the database. if does, close connection
+				//Run the query against the database.
+				ResultSet result = stmt.executeQuery(checkUsername);
+				//check to see if username is already in database, fail if it existed previously
+				if(result.isBeforeFirst() == true){
+					con.close();
+					return "You can only request one ride!";
+				}
+				else{
+					System.out.println("print this");
+					//create the insert statement. inserts every single piece of information from the controller is put into the database
+					String insertRequestRide = "INSERT INTO transportationProject.RequestRide(username, departure, location, time, destination)"+ 
+											" VALUES ('" + username + "', '"+ departure + "', '" + location + "', '" + time + "', '" + destination + "');"; 
+					//String insertNewAccount
+					
+					//String insertNewStat = "INSERT INTO transportationProject.UserStats(RUID)" + " VALUES ('" + RUID + "');"; 
+					//only need to insert ruid, so every single value should be 0. 						
+					//update database						
+					stmt.executeUpdate(insertRequestRide);
+				//	stmt.executeUpdate(insertNewStat);
+					con.close();
+					return "success";
+				}
+			
+
+			//close the connection.
+			
+
+		} catch (Exception e) {
+			return "failed";
+		}
+		
+
+	}
+	public String offerridetable(String username, String departure, String destination, String time,  String seats, String location, String additionalinformation){
+		try {
+
+			//Create a connection string
+			String url = "jdbc:mysql://transportationproject.c7dtxm2i40gp.us-east-1.rds.amazonaws.com:3306/transportationProject";
+			//Load JDBC driver - the interface standardizing the connection procedure. Look at WEB-INF\lib for a mysql connector jar file, otherwise it fails.
+			Class.forName("com.mysql.jdbc.Driver");
+
+			//Create a connection to your DB
+			Connection con = DriverManager.getConnection(url, "peterEleseRandy", "xd123cs336");
+
+			//Create a SQL statement
+			Statement stmt = con.createStatement();
+			
+			boolean validOfferRequest = validOfferRide(username, departure, destination, time, seats, location, additionalinformation); // validate data so that none of em is empty
+			System.out.println(validOfferRequest);
+			if(validOfferRequest == false){ // disconnect from db and tell controller tha something's missing
+				con.close();
+				return "missing fields";
+			}
+			
+			//first check if the query returned an empty set. In other words, a null row
+				//Make a SELECT query from the table specified by the 'username' parameter at the loginPage
+				String checkUsername = "SELECT * FROM OfferRide WHERE username = '" + username +"'"; // check if existing user is in the database. if does, close connection
+				//Run the query against the database.
+				ResultSet result = stmt.executeQuery(checkUsername);
+				//check to see if username is already in database, fail if it existed previously
+				if(result.isBeforeFirst() == true){
+					con.close();
+					return "You can only offer one ride!";
+				}
+				else{
+					System.out.println("print this");
+					//create the insert statement. inserts every single piece of information from the controller is put into the database
+					String insertOfferRide = "INSERT INTO transportationProject.OfferRide(username, departure, destination, time, seats, location, additionalinformation)"+ 
+											" VALUES ('" + username + "', '"+ departure + "', '" + destination + "', '" + time + "', '" + seats + "', '" + location + "', '" + additionalinformation + "');"; 
+					//String insertNewAccount
+					
+					//String insertNewStat = "INSERT INTO transportationProject.UserStats(RUID)" + " VALUES ('" + RUID + "');"; 
+					//only need to insert ruid, so every single value should be 0. 						
+					//update database						
+					stmt.executeUpdate(insertOfferRide);
+				//	stmt.executeUpdate(insertNewStat);
+					con.close();
+					
+					return "success";
+				}
+			
+
+			//close the connection.
+			
+
+		} catch (Exception e) {
+			return "failed";
+		}
+		
+
+	}
+		
+
 }
+
+

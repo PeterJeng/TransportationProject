@@ -11,11 +11,9 @@ Please enter your username and password: <%-- Actual title user see on the webpa
 <br> <%-- New line, essentially a /n --%>
 
 
-
-
 <%-- Action needs to link to a jsp page that pulls information from database and check if the information is valid--%>
 <form method = "post" action = "LoginAccountController"> 
-	Username: <input type = "text" name = "username" >
+	Username: <input type = "text" name = "username">
 	<br>
 	Password: <input type = "password" name = "password">
 	<br>

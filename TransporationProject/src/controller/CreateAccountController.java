@@ -32,8 +32,6 @@ public class CreateAccountController extends HttpServlet {
  
 		Authenticator authenticator = new Authenticator();
 		String result = authenticator.createAccount(RUID, username, password, confirmPassword, email, address, fname, lname);
-
-		
 		if(result.equals("missing fields")){
 			getServletContext().getRequestDispatcher("/Errors/CreateAccountError/MissingField.jsp").forward(request, response);
 		}
@@ -46,6 +44,9 @@ public class CreateAccountController extends HttpServlet {
 		}
 		else{
 			getServletContext().getRequestDispatcher("LoginPage.jsp").forward(request, response);
+			
+		//	HttpSession userSession = request.getSession();
+			//userSession.setAttribute("RUID", RUID);
 		}
 		
 	}

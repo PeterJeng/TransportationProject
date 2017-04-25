@@ -1,0 +1,1 @@
+<h2 align="left">No available users at the moment. You will be contacted when someone wants to offer you a ride.</h2>

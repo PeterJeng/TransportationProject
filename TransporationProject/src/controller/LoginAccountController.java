@@ -31,26 +31,24 @@ public class LoginAccountController extends HttpServlet{
 		Authenticator authenticator = new Authenticator();
 		String result = authenticator.loginAuthenticator(username, password);
 		
-		
+		RequestDispatcher rd = null;
 		
 		//create a session that responds to the entire website while it is active. 
 		//Ex. can use information of a class User temp in other jsp from this session
 		HttpSession userSession = request.getSession();
 		
-		RequestDispatcher rd = null;
-		
-		
 		if (result.equals("success")) {
 			User user = new User(username, password);
+			userSession.setAttribute("username", username);
 			userSession.setAttribute("user", user);
 			rd = request.getRequestDispatcher("/AccountMainPage.jsp");
-			
 		} 
 		else{
+
 			rd = request.getRequestDispatcher("/Errors/LoginError/LoginError.jsp");
+
 		}
 		
 		rd.forward(request, response);
-		
 	}
 }
