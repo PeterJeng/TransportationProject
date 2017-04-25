@@ -4,9 +4,22 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Lock Out User</title>
 </head>
 <body>
+Lock out user page
+<br>
+
+<form method = "post" action = "LockOutUserController"> 
+	
+	Username: <input type = "text" name = "username">
+	<br>
+	Comments: <input type = "text" name = "comments">
+	<br>
+	<input type = "submit" value = "Lock User Account">
+
+</form>
+
 
 </body>
 </html>

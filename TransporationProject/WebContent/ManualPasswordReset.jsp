@@ -4,9 +4,18 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Manual Password Reset</title>
 </head>
 <body>
+
+Manual password reset. Password will be reset to "password"
+
+<form action = "ManualPasswordResetController" method = "POST"> 
+	Username: <input type = "text" name = "username">
+	<br>
+
+<input type = "submit" value = "Reset Password">	
+</form>
 
 </body>
 </html>
