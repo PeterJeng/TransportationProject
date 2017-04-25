@@ -31,7 +31,7 @@ public class CreateStaffAccountController extends HttpServlet {
 		String lname = request.getParameter("lname");
  
 		Authenticator authenticator = new Authenticator();
-		String result = authenticator.createAccount(RUID, username, password, confirmPassword, email, address, fname, lname);
+		String result = authenticator.createStaffAccount(RUID, username, password, confirmPassword, email, address, fname, lname);
 		if(result.equals("missing fields")){
 			getServletContext().getRequestDispatcher("/Errors/CreateAccountError/MissingField.jsp").forward(request, response);
 		}
@@ -42,12 +42,13 @@ public class CreateStaffAccountController extends HttpServlet {
 		else if(result.equals("duplicate username")){
 			getServletContext().getRequestDispatcher("/Errors/CreateAccountError/UsernameAlreadyTaken.jsp").forward(request, response);
 		}
-		else{
-			getServletContext().getRequestDispatcher("LoginPage.jsp").forward(request, response);
+		else if(result.equals("success")){
+			getServletContext().getRequestDispatcher("/LoginPage.jsp").forward(request, response);
 			
 		//	HttpSession userSession = request.getSession();
 			//userSession.setAttribute("RUID", RUID);
 		}
+		else System.out.println("PROBLEM");
 		
 	}
 }

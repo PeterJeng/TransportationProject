@@ -43,7 +43,7 @@ public class CreateAccountController extends HttpServlet {
 			getServletContext().getRequestDispatcher("/Errors/CreateAccountError/UsernameAlreadyTaken.jsp").forward(request, response);
 		}
 		else{
-			getServletContext().getRequestDispatcher("LoginPage.jsp").forward(request, response);
+			getServletContext().getRequestDispatcher("/LoginPage.jsp").forward(request, response);
 			
 		//	HttpSession userSession = request.getSession();
 			//userSession.setAttribute("RUID", RUID);

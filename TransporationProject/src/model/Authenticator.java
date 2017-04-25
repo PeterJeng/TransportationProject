@@ -112,7 +112,7 @@ public class Authenticator {
 				else{
 					String type = "User";
 					//create the insert statement. inserts every single piece of information from the controller is put into the database
-					String insertNewAccount = "INSERT INTO transportationProject.User(RUID, Username, Password, Email, Address, FirstName, LastName)"+ 
+					String insertNewAccount = "INSERT INTO transportationProject.User(RUID, Username, Password, Email, Address, FirstName, LastName, Type)"+ 
 											" VALUES ('" + RUID + "', '"+ username+ "', '" + password + "', '" + email + "', '" + address + "', '" + fname + "', '" + lname + "', '"+ type + "');"; 
 					
 					String insertNewStat = "INSERT INTO transportationProject.UserStats(RUID)" + " VALUES ('" + RUID + "');"; 
@@ -165,7 +165,7 @@ public class Authenticator {
 			}
 			else{
 				//Make a SELECT query from the table specified by the 'username' parameter at the loginPage
-				String checkUsername = "SELECT * FROM User WHERE username = '" + username +"'"; // check if existing user is in the database. if does, close connection
+				String checkUsername = "SELECT * FROM User WHERE Username = '" + username +"';"; // check if existing user is in the database. if does, close connection
 				//Run the query against the database.
 				ResultSet result = stmt.executeQuery(checkUsername);
 				//check to see if username is already in database, fail if it existed previously
@@ -176,14 +176,16 @@ public class Authenticator {
 				else{
 					String type = "Staff";
 					//create the insert statement. inserts every single piece of information from the controller is put into the database
-					String insertNewAccount = "INSERT INTO transportationProject.User(RUID, Username, Password, Email, Address, FirstName, LastName)"+ 
+					String insertNewAccount = "INSERT INTO transportationProject.User(RUID, Username, Password, Email, Address, FirstName, LastName, Type)"+ 
 											" VALUES ('" + RUID + "', '"+ username+ "', '" + password + "', '" + email + "', '" + address + "', '" + fname + "', '" + lname + "', '"+ type + "');"; 
-					
-					String insertNewStat = "INSERT INTO transportationProject.UserStats(RUID)" + " VALUES ('" + RUID + "');"; 
+					//TEST
+					System.out.println(insertNewAccount);
+					//String insertNewStat = "INSERT INTO transportationProject.UserStats(RUID)" + " VALUES ('" + RUID + "');"; 
 					//only need to insert ruid, so every single value should be 0. 						
 					//update database						
 					stmt.executeUpdate(insertNewAccount);
-					stmt.executeUpdate(insertNewStat);
+					System.out.println("TEST");
+					//stmt.executeUpdate(insertNewStat);
 					con.close();
 					return "success";
 				}
@@ -216,7 +218,7 @@ public class Authenticator {
 			Statement stmt = con.createStatement();
 
 			//Make a SELECT query from the table specified by the 'username' parameter at the loginPage
-			String str = "SELECT * FROM User WHERE username = '" + username + "' AND password = '" + password + "'";
+			String str = "SELECT * FROM User WHERE Username = '" + username + "' AND Password = '" + password + "';";
 			//Run the query on the database.
 			ResultSet result = stmt.executeQuery(str);
 			
@@ -228,8 +230,8 @@ public class Authenticator {
 				//accessed database successfully and the account information existed in the database
 				
 				//TEST
-				String test = result.getString("Type");
-				System.out.println(test);
+				//String test = result.getString("Type");
+				//System.out.println(test);
 				
 				//TEST
 				con.close();
