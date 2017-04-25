@@ -2,19 +2,13 @@ package controller;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import model.Authenticator;
-import model.User;
-
-import sun.text.normalizer.ICUBinary.Authenticate;
-
 
 @WebServlet("/CreateAccountController")
 public class CreateAccountController extends HttpServlet {
@@ -41,17 +35,17 @@ public class CreateAccountController extends HttpServlet {
 
 		
 		if(result.equals("missing fields")){
-			getServletContext().getRequestDispatcher("/CreateAccountError/MissingField.jsp").forward(request, response);
+			getServletContext().getRequestDispatcher("/Errors/CreateAccountError/MissingField.jsp").forward(request, response);
 		}
 		else if (result.equals("password does not match")) {
-			getServletContext().getRequestDispatcher("/CreateAccountError/IncorrectPassword.jsp").forward(request, response);
+			getServletContext().getRequestDispatcher("/Errors/CreateAccountError/IncorrectPassword.jsp").forward(request, response);
 		
 		} 
 		else if(result.equals("duplicate username")){
-			getServletContext().getRequestDispatcher("/CreateAccountError/UsernameAlreadyTaken.jsp").forward(request, response);
+			getServletContext().getRequestDispatcher("/Errors/CreateAccountError/UsernameAlreadyTaken.jsp").forward(request, response);
 		}
 		else{
-			System.out.println("success");
+			getServletContext().getRequestDispatcher("LoginPage.jsp").forward(request, response);
 		}
 		
 	}

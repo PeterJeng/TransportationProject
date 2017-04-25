@@ -47,7 +47,7 @@ public class LoginAccountController extends HttpServlet{
 			
 		} 
 		else{
-			rd = request.getRequestDispatcher("/LoginError/LoginError.jsp");
+			rd = request.getRequestDispatcher("/Errors/LoginError/LoginError.jsp");
 		}
 		
 		rd.forward(request, response);

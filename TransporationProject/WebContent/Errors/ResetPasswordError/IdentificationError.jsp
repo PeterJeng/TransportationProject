@@ -4,19 +4,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Retrieve Account</title>
+<title>Insert title here</title>
 </head>
 <body>
-
-Confirm user identity:
-<form action = "ForgotPasswordController" method = "POST"> 
-	Username*: <input type = "text" name = "fname">
-	<br>
-	RUID*: <input type = "text" name = "ruid">
-	<br>
-<input type = "submit" value = "Reset Password">	
-</form>
-
 
 </body>
 </html>
