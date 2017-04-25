@@ -22,7 +22,6 @@ public class ManualPasswordResetController extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		
 		String username = request.getParameter("username");
-		String password = "password";
 
  
 		Authenticator authenticator = new Authenticator();
