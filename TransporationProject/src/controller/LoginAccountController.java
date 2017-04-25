@@ -31,11 +31,13 @@ public class LoginAccountController extends HttpServlet{
 		Authenticator authenticator = new Authenticator();
 		String result = authenticator.loginAuthenticator(username, password);
 		
-		RequestDispatcher rd = null;
+		
 		
 		//create a session that responds to the entire website while it is active. 
 		//Ex. can use information of a class User temp in other jsp from this session
 		HttpSession userSession = request.getSession();
+		
+		RequestDispatcher rd = null;
 		
 		
 		if (result.equals("success")) {
@@ -45,9 +47,10 @@ public class LoginAccountController extends HttpServlet{
 			
 		} 
 		else{
-			System.out.println("failed to login");
+			rd = request.getRequestDispatcher("/LoginError/LoginError.jsp");
 		}
 		
 		rd.forward(request, response);
+		
 	}
 }

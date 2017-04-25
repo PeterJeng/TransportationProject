@@ -4,17 +4,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Advertisement Page</title>
+<title>Error</title>
 </head>
 <body>
 
-<h3>File Upload:</h3>
-Select a file to upload: <br />
-<form action="AdvertisementUploadController" method="post" enctype="multipart/form-data">
-<input type="file" name="file" size="50" />
-<br />
-<input type="submit" value="Upload File" />
-</form>
+The username or password is not in the system. Please enter a valid username and password.
+
+<br>
+
+<a href="LoginPage.jsp">Login Page</a><br>
 
 </body>
 </html>
