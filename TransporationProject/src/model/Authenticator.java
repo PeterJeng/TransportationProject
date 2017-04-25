@@ -104,9 +104,10 @@ public class Authenticator {
 					return "duplicate username";
 				}
 				else{
+					String type = "User";
 					//create the insert statement. inserts every single piece of information from the controller is put into the database
 					String insertNewAccount = "INSERT INTO transportationProject.User(RUID, Username, Password, Email, Address, FirstName, LastName)"+ 
-											" VALUES ('" + RUID + "', '"+ username+ "', '" + password + "', '" + email + "', '" + address + "', '" + fname + "', '" + lname + "');"; 
+											" VALUES ('" + RUID + "', '"+ username+ "', '" + password + "', '" + email + "', '" + address + "', '" + fname + "', '" + lname + "', '"+ type + "');"; 
 					
 					String insertNewStat = "INSERT INTO transportationProject.UserStats(RUID)" + " VALUES ('" + RUID + "');"; 
 					//only need to insert ruid, so every single value should be 0. 						
@@ -127,6 +128,72 @@ public class Authenticator {
 		
 
 	}
+	
+	
+	
+	public String createStaffAccount(String RUID, String username, String password, String confirmPassword,  String email, String address, String fname, String lname){
+		try {
+
+			//Create a connection string
+			String url = "jdbc:mysql://transportationproject.c7dtxm2i40gp.us-east-1.rds.amazonaws.com:3306/transportationProject";
+			//Load JDBC driver - the interface standardizing the connection procedure. Look at WEB-INF\lib for a mysql connector jar file, otherwise it fails.
+			Class.forName("com.mysql.jdbc.Driver");
+
+			//Create a connection to your DB
+			Connection con = DriverManager.getConnection(url, "peterEleseRandy", "xd123cs336");
+
+			//Create a SQL statement
+			Statement stmt = con.createStatement();
+			
+			boolean validData = validData(fname, lname, username, password, confirmPassword, RUID); // validate data so that none of em is empty
+			
+			if(validData == false){ // disconnect from db and tell controller tha something's missing
+				con.close();
+				return "missing fields";
+			}
+			
+			//first check if the query returned an empty set. In other words, a null row
+			if(password.compareTo(confirmPassword) != 0){	//check to see password = confirmPassword
+				con.close();
+				return "password does not match";
+			}
+			else{
+				//Make a SELECT query from the table specified by the 'username' parameter at the loginPage
+				String checkUsername = "SELECT * FROM User WHERE username = '" + username +"'"; // check if existing user is in the database. if does, close connection
+				//Run the query against the database.
+				ResultSet result = stmt.executeQuery(checkUsername);
+				//check to see if username is already in database, fail if it existed previously
+				if(result.isBeforeFirst() == true){
+					con.close();
+					return "duplicate username";
+				}
+				else{
+					String type = "Staff";
+					//create the insert statement. inserts every single piece of information from the controller is put into the database
+					String insertNewAccount = "INSERT INTO transportationProject.User(RUID, Username, Password, Email, Address, FirstName, LastName)"+ 
+											" VALUES ('" + RUID + "', '"+ username+ "', '" + password + "', '" + email + "', '" + address + "', '" + fname + "', '" + lname + "', '"+ type + "');"; 
+					
+					String insertNewStat = "INSERT INTO transportationProject.UserStats(RUID)" + " VALUES ('" + RUID + "');"; 
+					//only need to insert ruid, so every single value should be 0. 						
+					//update database						
+					stmt.executeUpdate(insertNewAccount);
+					stmt.executeUpdate(insertNewStat);
+					con.close();
+					return "success";
+				}
+			}
+
+			//close the connection.
+			
+
+		} catch (Exception e) {
+			return "failed";
+		}
+		
+
+	}
+	
+	
 	
 	//check the login information with information stored in the DB. Return error if information does not match
 	public String loginAuthenticator(String username, String password){
@@ -153,6 +220,12 @@ public class Authenticator {
 				return "fail";
 			} else {
 				//accessed database successfully and the account information existed in the database
+				
+				//TEST
+				String test = result.getString("Type");
+				System.out.println(test);
+				
+				//TEST
 				con.close();
 				return "success";
 			}
