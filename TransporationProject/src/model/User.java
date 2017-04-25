@@ -33,9 +33,9 @@ public class User {
 			
 			
 			//Make a SELECT query from the table specified by the 'username' parameter at the loginPage
-			String retrieveRUID = "SELECT * FROM User WHERE username = '" + username +"';";
+			String userInfo = "SELECT * FROM User WHERE username = '" + username +"';";
 			//Run the query against the database.
-			ResultSet result = stmt.executeQuery(retrieveRUID);
+			ResultSet result = stmt.executeQuery(userInfo);
 			
 			//from the result of the query, update the fields of this instance of user with data from the DB
 			while(result.next()){

@@ -8,7 +8,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
- 
+import javax.servlet.http.HttpSession;
+
 import model.Authenticator;
 import model.User;
 
@@ -37,19 +38,17 @@ public class CreateAccountController extends HttpServlet {
  
 		Authenticator authenticator = new Authenticator();
 		String result = authenticator.createAccount(RUID, username, password, confirmPassword, email, address, fname, lname);
+
+		
 		if(result.equals("missing fields")){
-			
-			//need to change to popup window
-			System.out.println("missing required data");
+			getServletContext().getRequestDispatcher("/CreateAccountError/MissingField.jsp").forward(request, response);
 		}
 		else if (result.equals("password does not match")) {
-			//need to change to popup window
-			System.out.println("password does not match");
+			getServletContext().getRequestDispatcher("/CreateAccountError/IncorrectPassword.jsp").forward(request, response);
 		
 		} 
 		else if(result.equals("duplicate username")){
-			//need to change
-			System.out.println("duplicate username");
+			getServletContext().getRequestDispatcher("/CreateAccountError/UsernameAlreadyTaken.jsp").forward(request, response);
 		}
 		else{
 			System.out.println("success");

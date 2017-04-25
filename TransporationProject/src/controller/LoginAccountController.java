@@ -37,10 +37,12 @@ public class LoginAccountController extends HttpServlet{
 		//Ex. can use information of a class User temp in other jsp from this session
 		HttpSession userSession = request.getSession();
 		
+		
 		if (result.equals("success")) {
 			User user = new User(username, password);
 			userSession.setAttribute("user", user);
 			rd = request.getRequestDispatcher("/AccountMainPage.jsp");
+			
 		} 
 		else{
 			System.out.println("failed to login");
