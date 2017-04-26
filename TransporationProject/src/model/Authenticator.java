@@ -224,17 +224,20 @@ public class Authenticator {
 			//first check if the query returned an empty set. In other words, a null row
 			if (result.isBeforeFirst() == false) {
 				con.close();
-				System.out.println("3");
 				return "fail";
 			}
 			else{
 				//accessed database successfully and the account information existed in the database
 				
 				result.next();
-				String test = result.getString("Type");
 				
-				con.close();
-				return test;
+				if(result.getBoolean("Locked") == false){
+					String test = result.getString("Type");
+					
+					con.close();
+					return test;
+				}
+				else return "Locked";
 			}
 
 
@@ -411,7 +414,7 @@ public class Authenticator {
 			Statement stmt = con.createStatement();
 
 			//Make a SELECT query from the table specified by the 'username' parameter at the loginPage
-			String str = "SELECT * FROM User WHERE username = '" + username;
+			String str = "SELECT * FROM User WHERE username = '" + username + "';";
 			//Run the query on the database.
 			ResultSet result = stmt.executeQuery(str);
 			

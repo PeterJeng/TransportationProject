@@ -53,6 +53,9 @@ public class LoginAccountController extends HttpServlet{
 				userSession.setAttribute("user", user);
 				rd = request.getRequestDispatcher("/AdministratorPage.jsp");
 			}
+			else if(result.equals("Locked")){
+				rd = request.getRequestDispatcher("/Errors/LoginError/AccountLockedError.jsp");
+			}
 			else{
 				rd = request.getRequestDispatcher("/Errors/LoginError/LoginError.jsp");
 			}
