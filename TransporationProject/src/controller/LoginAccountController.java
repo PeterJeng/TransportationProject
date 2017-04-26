@@ -32,22 +32,30 @@ public class LoginAccountController extends HttpServlet{
 		String result = authenticator.loginAuthenticator(username, password);
 		
 		RequestDispatcher rd = null;
-		
 		//create a session that responds to the entire website while it is active. 
 		//Ex. can use information of a class User temp in other jsp from this session
 		HttpSession userSession = request.getSession();
-		
-		if (result.equals("success")) {
-			User user = new User(username, password);
-			userSession.setAttribute("username", username);
-			userSession.setAttribute("user", user);
-			rd = request.getRequestDispatcher("/AccountMainPage.jsp");
-		} 
-		else{
-
-			rd = request.getRequestDispatcher("/Errors/LoginError/LoginError.jsp");
-
-		}
+			if(result.equals("User")){
+				User user = new User(username, password);
+				userSession.setAttribute("username", username);
+				userSession.setAttribute("user", user);
+				rd = request.getRequestDispatcher("/AccountMainPage.jsp");
+			}
+			else if(result.equals("Staff")){
+				User user = new User(username, password);
+				userSession.setAttribute("username", username);
+				userSession.setAttribute("user", user);
+				rd = request.getRequestDispatcher("/SystemSupportStaffPage.jsp");
+			}
+			else if(result.equals("Admin")){
+				User user = new User(username, password);
+				userSession.setAttribute("username", username);
+				userSession.setAttribute("user", user);
+				rd = request.getRequestDispatcher("/AdministratorPage.jsp");
+			}
+			else{
+				rd = request.getRequestDispatcher("/Errors/LoginError/LoginError.jsp");
+			}
 		
 		rd.forward(request, response);
 	}

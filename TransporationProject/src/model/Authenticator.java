@@ -221,21 +221,20 @@ public class Authenticator {
 			String str = "SELECT * FROM User WHERE Username = '" + username + "' AND Password = '" + password + "';";
 			//Run the query on the database.
 			ResultSet result = stmt.executeQuery(str);
-			
 			//first check if the query returned an empty set. In other words, a null row
 			if (result.isBeforeFirst() == false) {
 				con.close();
+				System.out.println("3");
 				return "fail";
-			} else {
+			}
+			else{
 				//accessed database successfully and the account information existed in the database
 				
-				//TEST
-				//String test = result.getString("Type");
-				//System.out.println(test);
+				result.next();
+				String test = result.getString("Type");
 				
-				//TEST
 				con.close();
-				return "success";
+				return test;
 			}
 
 
