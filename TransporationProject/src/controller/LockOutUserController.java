@@ -39,7 +39,7 @@ public class LockOutUserController extends HttpServlet {
 		}
 		else if("Unlock User Account".equals(action)){
 			Authenticator authenticator = new Authenticator();
-			String result = authenticator.userLockAuthenticator(username, comment);
+			String result = authenticator.userUnlockAuthenticator(username, comment);
 			if(result.equals("fail")){
 				//getServletContext().getRequestDispatcher("/Errors/CreateAccountError/MissingField.jsp").forward(request, response);
 				System.out.println("User not found");

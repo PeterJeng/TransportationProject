@@ -1,9 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
 import java.sql.*;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -53,11 +50,48 @@ public class DeleteOfferRides extends HttpServlet {
 		//	System.out.println("deleting the stupid username out of the table");
 			
 			stmt.executeUpdate(sql);
+			
+			String RUID1 = "SELECT RUID FROM User WHERE Username = '" + deleteusername + "'";
+			ResultSet gRUID1 = stmt.executeQuery(RUID1);
+			String getRUID1 = "";
+			while (gRUID1.next()){
+				getRUID1 = gRUID1.getString("RUID");
+			}
+			
+			String updateTablee =  "Update UserStats Set RidesCompleted = RidesCompleted + 1 WHERE RUID = '"+ getRUID1 + "'";
+			stmt.executeUpdate(updateTablee);
+			HttpSession KeepTrackOfRequester = request.getSession();
+			KeepTrackOfRequester.setAttribute("KeepTrackOfOffer", getRUID1); // Need this for rating and ranking
+			
+			
+			
+			/*1. Make Survey in UserIsContacted. Make button in UserIsContacted and direct them to a new AfterRideController.java
+			 * 2. get RUID by doing getAttribute(),and insert Ranking / Rating based on the user's inputs
+			 * 
+			 */
+			
 			if (kek == false){
 				HttpSession userSession = request.getSession();
+				User userObject = (User) userSession.getAttribute("user");
+				int numrides = userObject.getRidesTaken();
+				numrides += 1;
+				userObject.setRidesTaken(numrides);
+				//HttpSession userSession = request.getSession();
 				String username = (String) userSession.getAttribute("username");
 				String sql1 ="DELETE FROM RequestRide WHERE Username = '" + username + "'";
 				stmt.executeUpdate(sql1);
+				
+				String RUID = "SELECT RUID FROM User WHERE Username = '" + username + "'";
+				ResultSet gRUID = stmt.executeQuery(RUID);
+				String getRUID = "";
+				while(gRUID.next()){
+					getRUID = gRUID.getString("RUID");
+				}
+				String updateTable =  "Update UserStats Set RidesTaken = RidesTaken + 1 WHERE RUID = '"+ getRUID + "'";
+				stmt.executeUpdate(updateTable); 
+				
+		//		HttpSession KeepTrackOfRequester = request.getSession();
+		//		KeepTrackOfRequester.setAttribute("KeepTrackOfRequester", getRUID); // Need this for rating and ranking
 			}
 			
 			
@@ -79,4 +113,4 @@ public class DeleteOfferRides extends HttpServlet {
 		
 		
 		
-	}
+}

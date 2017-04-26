@@ -32,7 +32,8 @@ public class DeleteRequestRides extends HttpServlet {
 		RequestDispatcher rd = null;
 		boolean kek = false;
 		String deleteusername = request.getParameter("username");
-		
+	//	HttpSession OtherUser = request.getSession();
+	//	OtherUser.setAttribute("OtherUser", deleteusername);
 		if (request.getParameter("username") == null){
 			kek = true;
 		}
@@ -52,11 +53,44 @@ public class DeleteRequestRides extends HttpServlet {
 			String sql ="DELETE FROM RequestRide WHERE Username = '" + deleteusername + "'";
 			//System.out.println("deleting the stupid username out of the table");
 			stmt.executeUpdate(sql);
+			
+			String RUID1 = "SELECT RUID FROM User WHERE Username = '" + deleteusername + "'";
+			ResultSet gRUID1 = stmt.executeQuery(RUID1);
+			String getRUID1 = "";
+			while (gRUID1.next()){
+				getRUID1 = gRUID1.getString("RUID");
+			}
+			
+			String updateTablee =  "Update UserStats Set RidesTaken = RidesTaken + 1 WHERE RUID = '"+ getRUID1 + "'";
+			stmt.executeUpdate(updateTablee);
+			
+			HttpSession KeepTrackOfOffer = request.getSession();
+			KeepTrackOfOffer.setAttribute("KeepTrackOfOffer", getRUID1); // Need this for rating and ranking
+			
 			if (kek == false){
+				
 			HttpSession userSession = request.getSession();
-			String username = (String) userSession.getAttribute("username");
+			User userObject = (User) userSession.getAttribute("user");
+			int numrides = userObject.getRidesCompleted();
+			numrides += 1;
+			userObject.setRidesCompleted(numrides);
+			
+			String username = (String) userSession.getAttribute("username"); // 
 			String sql1 ="DELETE FROM OfferRide WHERE Username = '" + username + "'";
 			stmt.executeUpdate(sql1);
+			
+			String RUID = "SELECT RUID FROM User WHERE Username = '" + username + "'";
+			ResultSet gRUID = stmt.executeQuery(RUID);
+			String getRUID = "";
+			while(gRUID.next()){
+				getRUID = gRUID.getString("RUID");
+			}
+			String updateTable =  "Update UserStats Set RidesCompleted = RidesCompleted + 1 WHERE RUID = '"+ getRUID + "'";
+			stmt.executeUpdate(updateTable); 
+			
+			//HttpSession KeepTrackOfRequester = request.getSession();
+		//	KeepTrackOfRequester.setAttribute("KeepTrackOfRequester", getRUID); // Need this for rating and rankin
+			
 			}
 			
 			
@@ -64,7 +98,7 @@ public class DeleteRequestRides extends HttpServlet {
 			return;
 		}
 		 if (kek){
-			System.out.println("kekeke");
+		//	System.out.println("kekeke");
 			rd = request.getRequestDispatcher("/NoUserContacted.jsp");
 			rd.forward(request, response);
 		} 
@@ -77,4 +111,4 @@ public class DeleteRequestRides extends HttpServlet {
 		
 		
 		
-	}
+}

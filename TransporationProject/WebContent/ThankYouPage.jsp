@@ -1,0 +1,1 @@
+<h2>Thank you. Rating has been updated.</h2>

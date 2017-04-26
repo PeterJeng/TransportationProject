@@ -470,7 +470,7 @@ public class Authenticator {
 				
 				//create the insert statement. inserts every single piece of information from the controller is put into the database
 				String updateLockInfo = "UPDATE transportationProject.User"+ 
-										" SET Locked = false, Comments = '" + comment + "' WHERE Username = '" + username + "';";
+										" SET Locked = 0, Comments = '" + comment + "' WHERE Username = '" + username + "';";
 										
 				//update database						
 				stmt.executeUpdate(updateLockInfo);
