@@ -100,7 +100,7 @@ public class DeleteOfferRides extends HttpServlet {
 			return;
 		}
 		if (kek){
-			System.out.println("kekeke");
+			//System.out.println("kekeke");
 			rd = request.getRequestDispatcher("/NoUserContacted.jsp");
 			rd.forward(request, response);
 		}

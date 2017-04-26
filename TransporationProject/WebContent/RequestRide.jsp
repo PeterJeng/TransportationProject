@@ -15,7 +15,13 @@ Request Ride <%-- Actual title user see on the webpage --%>
 <form action = "RequestRideController" method = "POST"> 
 	Departure*(Where you are currently located): <input type = "text" name = "departure">
 	<br>
-	Destination*(Which campus you want to be in. Ex: "Busch", "Livingston", "CookDoug", "CollegeAve"): <input type = "text" name = "destination">
+	Destination*:
+	<select name = "destination">
+	<option value="Busch">Busch</option>
+    <option value="Livingston">Livingston</option>
+    <option value="CookDoug">CookDoug</option>
+    <option value="CollegeAve">CollegeAve</option>
+	 </select>
 	<br>
 	Time(Ex: 8:00pm)*: <input type = "text" name = "time">
 	<br>
