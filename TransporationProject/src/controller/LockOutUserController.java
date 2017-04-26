@@ -23,20 +23,32 @@ public class LockOutUserController extends HttpServlet {
 		
 		String username = request.getParameter("username");
 		String comment = request.getParameter("comments");
-
+		String action = request.getParameter("action");
  
-		Authenticator authenticator = new Authenticator();
-		String result = authenticator.userLockAuthenticator(username, comment);
-		if(result.equals("fail")){
-			//getServletContext().getRequestDispatcher("/Errors/CreateAccountError/MissingField.jsp").forward(request, response);
-			System.out.println("User not found");
+		if("Lock User Account".equals(action)){
+			Authenticator authenticator = new Authenticator();
+			String result = authenticator.userLockAuthenticator(username, comment);
+			if(result.equals("fail")){
+				//getServletContext().getRequestDispatcher("/Errors/CreateAccountError/MissingField.jsp").forward(request, response);
+				System.out.println("User not found");
+			}
+			else if (result.equals("success")) {
+				//getServletContext().getRequestDispatcher("/Errors/CreateAccountError/IncorrectPassword.jsp").forward(request, response);
+				System.out.println("Lock successful");
+			} 
 		}
-		else if (result.equals("success")) {
-			//getServletContext().getRequestDispatcher("/Errors/CreateAccountError/IncorrectPassword.jsp").forward(request, response);
-			System.out.println("Lock successful");
-		} 
-
-		
+		else if("Unlock User Account".equals(action)){
+			Authenticator authenticator = new Authenticator();
+			String result = authenticator.userLockAuthenticator(username, comment);
+			if(result.equals("fail")){
+				//getServletContext().getRequestDispatcher("/Errors/CreateAccountError/MissingField.jsp").forward(request, response);
+				System.out.println("User not found");
+			}
+			else if (result.equals("success")) {
+				//getServletContext().getRequestDispatcher("/Errors/CreateAccountError/IncorrectPassword.jsp").forward(request, response);
+				System.out.println("Unlock successful");
+			}
+		}
 		
 	}
 }

@@ -16,7 +16,9 @@ Lock out user page
 	<br>
 	Comments: <input type = "text" name = "comments">
 	<br>
-	<input type = "submit" value = "Lock User Account">
+	<input type = "submit" name="action" value = "Lock User Account">
+	<br>
+	<input type = "submit" name="action" value = "Unlock User Account">
 
 </form>
 
