@@ -24,17 +24,19 @@ public class LoginAccountController extends HttpServlet{
  
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
- 
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
-		
-		Authenticator authenticator = new Authenticator();
-		String result = authenticator.loginAuthenticator(username, password);
 		
 		RequestDispatcher rd = null;
-		//create a session that responds to the entire website while it is active. 
-		//Ex. can use information of a class User temp in other jsp from this session
-		HttpSession userSession = request.getSession();
+		String action = request.getParameter("action");
+		if("Log In".equals(action)){
+			String username = request.getParameter("username");
+			String password = request.getParameter("password");
+			
+			Authenticator authenticator = new Authenticator();
+			String result = authenticator.loginAuthenticator(username, password);
+			
+			//create a session that responds to the entire website while it is active. 
+			//Ex. can use information of a class User temp in other jsp from this session
+			HttpSession userSession = request.getSession();
 			if(result.equals("User")){
 				User user = new User(username, password);
 				userSession.setAttribute("username", username);
@@ -59,7 +61,13 @@ public class LoginAccountController extends HttpServlet{
 			else{
 				rd = request.getRequestDispatcher("/Errors/LoginError/LoginError.jsp");
 			}
-		
+		}
+		else if("Create New Account".equals(action)){
+			rd = request.getRequestDispatcher("/CreateAccount.jsp");
+		}
+		else if("Reset User Password".equals(action)){
+			rd = request.getRequestDispatcher("/ResetPassword.jsp");
+		}
 		rd.forward(request, response);
 	}
 }

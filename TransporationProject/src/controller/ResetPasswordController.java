@@ -10,11 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.Authenticator;
 
-@WebServlet("/ManualPasswordResetController")
-public class ManualPasswordResetController extends HttpServlet {
+@WebServlet("/ResetPasswordController")
+public class ResetPasswordController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	 
-	public ManualPasswordResetController() {
+	public ResetPasswordController() {
 		super();
 	}
  
@@ -22,15 +22,16 @@ public class ManualPasswordResetController extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		
 		String username = request.getParameter("username");
+		String RUID = request.getParameter("RUID");
 
  
 		Authenticator authenticator = new Authenticator();
-		String result = authenticator.manualPasswordResetAuthenticator(username);
+		String result = authenticator.passwordResetAuthenticator(username, RUID);
 		if(result.equals("fail")){
 			getServletContext().getRequestDispatcher("/Errors/ResetPasswordError/IdentificationError.jsp").forward(request, response);
 		}
 		else if (result.equals("success")) {
-			getServletContext().getRequestDispatcher("/SystemSupportStaffPage.jsp").forward(request, response);
+			getServletContext().getRequestDispatcher("/LoginPage.jsp").forward(request, response);
 		} 
 	}
 }

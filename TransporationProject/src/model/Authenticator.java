@@ -500,7 +500,50 @@ public class Authenticator {
 			Statement stmt = con.createStatement();
 
 			//Make a SELECT query from the table specified by the 'username' parameter at the loginPage
-			String str = "SELECT * FROM User WHERE username = '" + username;
+			String str = "SELECT * FROM User WHERE username = '" + username + "';";
+			//Run the query on the database.
+			ResultSet result = stmt.executeQuery(str);
+			
+			//first check if the query returned an empty set. In other words, a null row
+			if (result.isBeforeFirst() == false) {
+				con.close();
+				return "fail";
+			} else {
+				//accessed database successfully and the account information existed in the database
+				
+				//create the insert statement. inserts every single piece of information from the controller is put into the database
+				String updateLockInfo = "UPDATE transportationProject.User"+ 
+										" SET Password = 'password' WHERE Username = '" + username + "';";
+										
+				//update database						
+				stmt.executeUpdate(updateLockInfo);
+				
+				con.close();
+				return "success";
+			}
+
+
+		} catch (Exception e) {
+			return "fail";
+		}
+		
+	}
+	
+	public String passwordResetAuthenticator(String username, String RUID){
+		try {
+			//Create a connection string
+			String url = "jdbc:mysql://transportationproject.c7dtxm2i40gp.us-east-1.rds.amazonaws.com:3306/transportationProject";
+			//Load JDBC driver - the interface standardizing the connection procedure. Look at WEB-INF\lib for a mysql connector jar file, otherwise it fails.
+			Class.forName("com.mysql.jdbc.Driver");
+
+			//Create a connection to your DB
+			Connection con = DriverManager.getConnection(url, "peterEleseRandy", "xd123cs336");
+
+			//Create a SQL statement
+			Statement stmt = con.createStatement();
+
+			//Make a SELECT query from the table specified by the 'username' parameter at the loginPage
+			String str = "SELECT * FROM User WHERE Username = '" + username + "' AND RUID = " + RUID + ";";
 			//Run the query on the database.
 			ResultSet result = stmt.executeQuery(str);
 			

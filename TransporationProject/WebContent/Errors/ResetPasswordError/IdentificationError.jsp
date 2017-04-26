@@ -4,9 +4,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Error</title>
 </head>
 <body>
-
+The information that was input was incorrect. Try again.
+<br>
+<a href="ResetPassword.jsp">Go Back</a><br>
 </body>
 </html>

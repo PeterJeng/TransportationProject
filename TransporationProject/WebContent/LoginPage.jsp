@@ -18,7 +18,11 @@ Please enter your username and password: <%-- Actual title user see on the webpa
 	Password: <input type = "password" name = "password">
 	<br>
 	
-<input type = "submit" value = "Log In">	
+	<input type = "submit" name="action" value = "Log In">
+	<br>
+	<input type = "submit" name="action" value = "Create New Account">
+	<br>
+	<input type = "submit" name="action" value = "Reset User Password">
 </form>
 
 <br>
