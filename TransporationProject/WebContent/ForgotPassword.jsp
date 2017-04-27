@@ -10,12 +10,12 @@
 
 Confirm user:
 <form method = "post" action = "ForgotPasswordController"> 
-    Username: <input type = "text" name = "username">
-    <br>
-    RUID: <input type = "text" name = "RUID">
-    <br>
-    
-<input type = "submit" value = "Authenticate">    
+	Username: <input type = "text" name = "username">
+	<br>
+	RUID: <input type = "text" name = "RUID">
+	<br>
+	
+<input type = "submit" value = "Authenticate">	
 </form>
 
 </body>

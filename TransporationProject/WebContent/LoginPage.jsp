@@ -7,6 +7,9 @@
 <title>Login Page</title> <%-- Title names the tab--%>
 </head>
 <body>
+
+<h1>Rutgers Carpool</h1>
+
 Please enter your username and password: <%-- Actual title user see on the webpage --%>
 <br> <%-- New line, essentially a /n --%>
 
@@ -21,11 +24,12 @@ Please enter your username and password: <%-- Actual title user see on the webpa
 	<input type = "submit" name="action" value = "Log In">
 	<br>
 	<input type = "submit" name="action" value = "Create New Account">
-	<br>
-	<input type = "submit" name="action" value = "Reset User Password">
+
 </form>
 
 <br>
+
+<a href = "ForgotPassword.jsp"> Forgot Password</a>
 
 </body>
 </html>

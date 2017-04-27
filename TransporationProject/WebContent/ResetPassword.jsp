@@ -8,15 +8,11 @@
 </head>
 <body>
 
-Input username and RUID. Your password will reset to 'password'.
-
-<form action = "ResetPasswordController" method = "POST"> 
-	Username: <input type = "text" name = "username">
+Enter new password:
+<form method = "post" action = "ResetPasswordController"> 
+	Password: <input type = "password" name = "password">
 	<br>
-	RUID: <input type = "text" name = "RUID">
-	<br>
-	<input type = "submit" name="action" value = "Reset Password">
-	
+<input type = "submit" value = "Reset Password">	
 </form>
 
 </body>
