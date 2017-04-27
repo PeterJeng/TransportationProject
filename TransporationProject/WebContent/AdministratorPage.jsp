@@ -16,6 +16,7 @@ Welcome, Admin!
 	<br>
 	<input type = "submit" name="action" value = "Run Query On Statistics">
 	<br>
+	<a href="EditInformation.jsp">Edit Information</a><br>
 	<a href="LoginPage.jsp">Return to Log In</a><br>
 </form>
 
