@@ -31,7 +31,7 @@ public class SystemSupportStaffController extends HttpServlet{
 			rd = request.getRequestDispatcher("/LockOutUser.jsp");
 		}
 		else if ("Add/Remove Advertisement".equals(action)){
-			rd = request.getRequestDispatcher("/Advertisements.jsp");
+			rd = request.getRequestDispatcher("/AdvertisementPage.jsp");
 		}
 		
 		rd.forward(request, response);
