@@ -48,11 +48,12 @@ public class CreateAccountController extends HttpServlet {
 		else if(result.equals("duplicate username")){
 			getServletContext().getRequestDispatcher("/Errors/CreateAccountError/UsernameAlreadyTaken.jsp").forward(request, response);
 		}
-		else{
+		else if(result.equals("success")){
 			getServletContext().getRequestDispatcher("/LoginPage.jsp").forward(request, response);
 			
-		//	HttpSession userSession = request.getSession();
-			//userSession.setAttribute("RUID", RUID);
+		}
+		else{
+			getServletContext().getRequestDispatcher("/Errors/CreateAccountError/GenericError.jsp").forward(request, response);
 		}
 		
 	}

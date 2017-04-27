@@ -40,14 +40,13 @@ public class OfferRideController extends HttpServlet {
 		Authenticator authenticator = new Authenticator();
 		String result = authenticator.offerridetable(username, departure, destination, time, seats, location, additionalinformation);
 		if(result.equals("missing fields")){
-			
-			//need to change to popup window
-			System.out.println("missing required data");
+			rd = request.getRequestDispatcher("/Errors/RideErrors/MissingDataError.jsp");
+			rd.forward(request, response);
 		}
 		
 		else if(result.equals("You can only offer one ride!")){
-			//need to change
-			System.out.println("You can only offer one ride!");
+			rd = request.getRequestDispatcher("/Errors/RideErrors/OneRideError.jsp");
+			rd.forward(request, response);
 		}
 		else{
 			System.out.println("success!");

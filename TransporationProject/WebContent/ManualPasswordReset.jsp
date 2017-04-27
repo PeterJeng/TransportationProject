@@ -15,6 +15,8 @@ Manual password reset. Password will be reset to "password"
 	<br>
 
 <input type = "submit" value = "Reset Password">	
+<br>
+<a href="SystemSupportStaffPage.jsp">Return to Staff Main Page</a><br>
 </form>
 
 </body>

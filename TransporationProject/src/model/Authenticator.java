@@ -135,7 +135,52 @@ public class Authenticator {
 
 	}
 	
-	
+	public String updateAccount(String username, String password, String confirmPassword,  String email, String address, String fname, String lname){
+		try {
+
+			//Create a connection string
+			String url = "jdbc:mysql://transportationproject.c7dtxm2i40gp.us-east-1.rds.amazonaws.com:3306/transportationProject";
+			//Load JDBC driver - the interface standardizing the connection procedure. Look at WEB-INF\lib for a mysql connector jar file, otherwise it fails.
+			Class.forName("com.mysql.jdbc.Driver");
+
+			//Create a connection to your DB
+			Connection con = DriverManager.getConnection(url, "peterEleseRandy", "xd123cs336");
+
+			//Create a SQL statement
+			Statement stmt = con.createStatement();
+			
+			String ruidQuery = "SELECT RUID FROM User WHERE Username = '" + username + "';";
+			ResultSet ruidResult = stmt.executeQuery(ruidQuery);
+			ruidResult.next();
+			String RUID = ruidResult.getString("RUID");
+			
+			boolean validData = validData(fname, lname, username, password, confirmPassword, RUID); // validate data so that none of em is empty
+			
+			if(validData == false){ // disconnect from db and tell controller tha something's missing
+				con.close();
+				return "missing fields";
+			}
+			else if(password.compareTo(confirmPassword) != 0){
+				con.close();
+				return "password does not match";
+			}
+			else{
+				String updateAccount = "UPDATE User SET Password = '" + password + "', Email = '" + email + "', Address = '" + address + "', FirstName = '" + fname + "', LastName = '" + lname + "' WHERE RUID = '" + RUID + "';";			
+				stmt.executeUpdate(updateAccount);
+				con.close();
+				return "success";
+			}
+			
+
+			//close the connection.
+			
+
+		} catch (Exception e) {
+			return "failed";
+		}
+		
+
+	}
 	
 	public String createStaffAccount(String RUID, String username, String password, String confirmPassword,  String email, String address, String fname, String lname){
 		try {

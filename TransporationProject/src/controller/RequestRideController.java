@@ -43,14 +43,13 @@ public class RequestRideController extends HttpServlet {
 		Authenticator authenticator = new Authenticator();
 		String result = authenticator.requestridetable(username, departure, destination, time, location);
 		if(result.equals("missing fields")){
-			
-			//need to change to popup window
-			System.out.println("missing required data");
+			rd = request.getRequestDispatcher("/Errors/RideErrors/RequestMissingDataError.jsp");
+			rd.forward(request, response);
 		}
 		
 		else if(result.equals("You can only request one ride!")){
-			//need to change
-			System.out.println("You can only request one ride!");
+			rd = request.getRequestDispatcher("/Errors/RideErrors/RequestOneRideError.jsp");
+			rd.forward(request, response);
 		}
 		else{
 			System.out.println("success!");

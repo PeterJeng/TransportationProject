@@ -34,6 +34,7 @@ Request Ride <%-- Actual title user see on the webpage --%>
 
 <br>
 * Indicates required field
-
+<br>
+<a href="AccountMainPage.jsp">Return to User Main Page</a><br>
 </body>
 </html>

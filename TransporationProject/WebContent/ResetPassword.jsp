@@ -1,23 +1,44 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Reset Password</title>
-</head>
-<body>
+package controller;
 
-Input username and RUID. Your password will reset to 'password'.
+import java.io.IOException;
 
-<form action = "ResetPasswordController" method = "POST"> 
-	Username: <input type = "text" name = "username">
-	<br>
-	RUID: <input type = "text" name = "RUID">
-	<br>
-	<input type = "submit" name="action" value = "Reset Password">
-	
-</form>
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-</body>
-</html>
+import model.Authenticator;
+
+@WebServlet("/ForgotPasswordController")
+public class ForgotPasswordController extends HttpServlet{
+    private static final long serialVersionUID = 1L;
+     
+    public ForgotPasswordController() {
+        super();
+    }
+ 
+    protected void doPost(HttpServletRequest request,
+        HttpServletResponse response) throws ServletException, IOException {
+        
+        String username = request.getParameter("username");
+        String RUID = request.getParameter("RUID");
+ 
+        Authenticator authenticator = new Authenticator();
+        String result = authenticator.resetPasswordAuthenticator(username, RUID);
+        
+        HttpSession userSession = request.getSession();
+
+        if(result.equals("success")){
+            userSession.setAttribute("passwordResetUsername", username);
+            userSession.setAttribute("passwordResetRUID", RUID);
+            getServletContext().getRequestDispatcher("/ResetPassword.jsp").forward(request, response);
+        }
+        else{
+            getServletContext().getRequestDispatcher("/Errors/ResetPasswordError/IdentificationError.jsp").forward(request, response);
+        }
+        
+    }
+    
+}

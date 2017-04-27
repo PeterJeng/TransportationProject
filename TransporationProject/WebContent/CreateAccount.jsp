@@ -33,6 +33,8 @@ Create User Account <%-- Actual title user see on the webpage --%>
 	
 	
 <input type = "submit" value = "Create Account">	
+<br>
+<a href="LoginPage.jsp">Return to Log In</a><br>
 </form>
 
 

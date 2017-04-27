@@ -33,7 +33,8 @@
                </tr>
            </c:forEach>
        </table>
-
+<br>
+<a href="AdministratorPage.jsp">Return to Admin Main Page</a><br>
 
 </body>
 </html>

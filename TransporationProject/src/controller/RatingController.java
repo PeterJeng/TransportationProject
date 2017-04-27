@@ -56,11 +56,11 @@ public class RatingController extends HttpServlet{
 				
 				avgRating = avg.getInt("avg(Rating)");
 			}
-			 System.out.println("after getting the average");
+			// System.out.println("after getting the average");
 			String addAvg = "UPDATE UserStats SET Rating = " + avgRating + " WHERE RUID = '" + userRUID + "'";
-			System.out.println("line 61");
+			//System.out.println("line 61");
 			stmt.executeUpdate(addAvg);
-			System.out.println("line 62");
+			//System.out.println("line 62");
 			//Statement stmt = con.createStatement(
 			//         ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 		//	String update = "SET @rank=0; SELECT @rank:=@rank+1 AS rank, RUID, Rating FROM UserStats ORDER BY Rating DESC";

@@ -19,7 +19,8 @@ Lock out user page
 	<input type = "submit" name="action" value = "Lock User Account">
 	<br>
 	<input type = "submit" name="action" value = "Unlock User Account">
-
+	<br>
+	<a href="SystemSupportStaffPage.jsp">Return to Staff Main Page</a><br>
 </form>
 
 

@@ -85,3 +85,6 @@ e.printStackTrace();
 %>
 
 </table>
+
+<br>
+<a href="AccountMainPage.jsp">Return to User Main Page</a><br>

@@ -17,6 +17,8 @@ Welcome, Staff!
 	<input type = "submit" name="action" value = "Lock Out User">
 	<br>
 	<input type = "submit" name="action" value = "Add/Remove Advertisement">
+	<br>
+	<a href="LoginPage.jsp">Return to Log In</a><br>
 
 </form>
 

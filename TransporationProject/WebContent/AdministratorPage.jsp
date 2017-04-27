@@ -15,7 +15,8 @@ Welcome, Admin!
 	<input type = "submit" name="action" value = "Create System Support Staff Account">
 	<br>
 	<input type = "submit" name="action" value = "Run Query On Statistics">
-
+	<br>
+	<a href="LoginPage.jsp">Return to Log In</a><br>
 </form>
 
 

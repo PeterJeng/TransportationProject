@@ -7,7 +7,7 @@
 <title>Error</title>
 </head>
 <body>
-The information you have inputted has missing fields. Please go back and fill in the form appropriately.
+The information you have input has missing fields. Please go back and fill in the form appropriately.
 
 <br>
 

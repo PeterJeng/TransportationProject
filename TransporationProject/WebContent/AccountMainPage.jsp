@@ -24,8 +24,8 @@ Welcome ${user.getFirstName()}! To access the information, please click the link
 <a href="EditInformation.jsp">Edit Information</a><br>
 
 <a href="Messages.jsp">Messaging System</a>
-
-
+<br>
+<a href="LoginPage.jsp">Return to Log In</a><br>
 
 
 </body>

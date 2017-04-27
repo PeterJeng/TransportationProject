@@ -55,9 +55,7 @@ public class QueryPageController extends HttpServlet {
 			
 			} catch(SQLException | ClassNotFoundException ex) {
 				throw new ServletException(ex);
-			} //finally {
-				//con.close();
-			//}
+			}
 	}
 } 
 
